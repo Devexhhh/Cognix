@@ -16,9 +16,10 @@ def main():
             print("[bold red]Jarvis shutting down.[/bold red]")
             break
 
-        response = jarvis.think(user_input)
-
-        print(f"[bold cyan]Jarvis:[/bold cyan] {response}\n")
+        print("[bold cyan]Jarvis:[/bold cyan] ", end="")
+        
+        jarvis.think(user_input)
+        print()
 
 
 if __name__ == "__main__":
