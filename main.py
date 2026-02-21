@@ -19,7 +19,6 @@ def main():
 
         reply = cognix.think(user_input)
 
-        # Detect action command
         if reply.startswith("ACTION:"):
 
             action = reply.replace("ACTION:", "").strip()
@@ -29,7 +28,6 @@ def main():
             print("[bold cyan]Cognix:[/bold cyan]", result)
 
         else:
-
             print("[bold cyan]Cognix:[/bold cyan]", reply)
 
 
