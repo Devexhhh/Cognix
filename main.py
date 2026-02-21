@@ -1,0 +1,25 @@
+from brain import Brain
+from rich import print
+
+def main():
+
+    jarvis = Brain()
+
+    print("[bold cyan]Jarvis initialized.[/bold cyan]")
+    print("[bold yellow]Type 'exit' to quit.[/bold yellow]\n")
+
+    while True:
+
+        user_input = input("[bold red]You:[/bold red] ")
+
+        if user_input.lower() == "exit":
+            print("[bold red]Jarvis shutting down.[/bold red]")
+            break
+
+        response = jarvis.think(user_input)
+
+        print(f"[bold cyan]Jarvis:[/bold cyan] {response}\n")
+
+
+if __name__ == "__main__":
+    main()
