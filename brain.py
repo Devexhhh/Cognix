@@ -17,10 +17,18 @@ class Brain:
 
         response = ollama.chat(
             model=MODEL_NAME,
-            messages=self.messages
+            messages=self.messages,
+            stream=True
         )
 
-        reply = response['message']['content']
+        reply = ""
+
+        for chunk in response:
+            content = chunk['message']['content']
+            print(content, end="", flush=True)
+            reply += content
+
+        print()
 
         self.messages.append({
             "role": "assistant",
