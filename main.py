@@ -1,34 +1,36 @@
 from brain import Brain
-from rich import print
 from actions import Actions
+from rich import print
 
 def main():
 
-    jarvis = Brain()
+    cognix = Brain()
     actions = Actions()
 
-    print("[bold cyan]Cognix initialized.[/bold cyan]")
-    print("[bold yellow]Type 'exit' to quit.[/bold yellow]\n")
+    print("[bold cyan]Cognix initialized.[/bold cyan]\n")
 
     while True:
-        print("[bold green]You:[/bold green]", end="")
+
+        print("[bold green]You:[/bold green] ", end="")
         user_input = input()
 
         if user_input.lower() == "exit":
-            print("[bold red]Cognix shutting down.[/bold red]")
             break
 
-        action_result = actions.execute(user_input)
+        reply = cognix.think(user_input)
 
-        if action_result:
-            print("[bold cyan]Cognix:[/bold cyan] ", end="")
-            print(action_result)
-            continue
+        # Detect action command
+        if reply.startswith("ACTION:"):
 
-        print("[bold cyan]Cognix:[/bold cyan] ", end="")
-        jarvis.think(user_input)
+            action = reply.replace("ACTION:", "").strip()
 
-        print()
+            result = actions.execute(action)
+
+            print("[bold cyan]Cognix:[/bold cyan]", result)
+
+        else:
+
+            print("[bold cyan]Cognix:[/bold cyan]", reply)
 
 
 if __name__ == "__main__":
