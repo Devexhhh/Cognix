@@ -18,16 +18,24 @@ def main():
             break
 
         reply = cognix.think(user_input)
-
+        
         if reply.startswith("ACTION:"):
 
             action = reply.replace("ACTION:", "").strip()
 
             result = actions.execute(action)
 
-            print("[bold cyan]Cognix:[/bold cyan]", result)
+            if result:
+                print("[bold cyan]Cognix:[/bold cyan]", result)
+            else:
+                print("[bold cyan]Cognix:[/bold cyan] I couldn't perform that action.")
 
         else:
+
+            # Filter weird responses
+            if "no action necessary" in reply.lower():
+                reply = "Hello. How can I assist you?"
+
             print("[bold cyan]Cognix:[/bold cyan]", reply)
 
 if __name__ == "__main__":
