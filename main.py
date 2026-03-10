@@ -43,7 +43,7 @@ def main():
             # Remember user name
         if "my name is" in user_input.lower():
 
-            name = user_input.split("is")[-1].strip()
+            name = user_input.lower().replace("my name is", "").strip().title()
 
             memory.remember("username", name)
 
