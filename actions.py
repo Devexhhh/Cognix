@@ -1,7 +1,6 @@
 import subprocess
 import webbrowser
 import os
-
 class Actions:
 
     def execute(self, action):
