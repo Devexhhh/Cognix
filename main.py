@@ -30,6 +30,5 @@ def main():
         else:
             print("[bold cyan]Cognix:[/bold cyan]", reply)
 
-
 if __name__ == "__main__":
     main()
