@@ -22,7 +22,6 @@ def main():
         reply = cognix.think(user_input)
 
         if reply.startswith("ACTION:"):
-
             action = reply.replace("ACTION:", "").strip()
 
             result = actions.execute(action)
@@ -33,7 +32,6 @@ def main():
                 print("[bold cyan]Cognix:[/bold cyan] I couldn't perform that action.")
 
         else:
-
             # Filter weird responses
             if "no action necessary" in reply.lower():
                 reply = "Hello. How can I assist you?"
@@ -42,7 +40,6 @@ def main():
 
             # Remember user name
         if "my name is" in user_input.lower():
-
             name = user_input.lower().replace("my name is", "").strip().title()
 
             memory.remember("username", name)
