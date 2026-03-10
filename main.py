@@ -1,11 +1,13 @@
 from brain import Brain
 from actions import Actions
 from rich import print
+from memory import Memory
 
 def main():
 
     cognix = Brain()
     actions = Actions()
+    memory = Memory()
 
     print("[bold cyan]Cognix initialized.[/bold cyan]\n")
 
@@ -18,7 +20,7 @@ def main():
             break
 
         reply = cognix.think(user_input)
-        
+
         if reply.startswith("ACTION:"):
 
             action = reply.replace("ACTION:", "").strip()
@@ -37,6 +39,30 @@ def main():
                 reply = "Hello. How can I assist you?"
 
             print("[bold cyan]Cognix:[/bold cyan]", reply)
+
+            # Remember user name
+        if "my name is" in user_input.lower():
+
+            name = user_input.split("is")[-1].strip()
+
+            memory.remember("username", name)
+
+            print("[bold cyan]Cognix:[/bold cyan] Nice to meet you", name)
+
+            continue
+
+
+        # Recall name
+        if "what is my name" in user_input.lower():
+
+            name = memory.recall("username")
+
+        if name:
+            print("[bold cyan]Cognix:[/bold cyan] Your name is", name)
+        else:
+            print("[bold cyan]Cognix:[/bold cyan] I don't know your name yet.")
+
+        continue
 
 if __name__ == "__main__":
     main()
