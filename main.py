@@ -4,7 +4,6 @@ from rich import print
 from memory import Memory
 from voice import Voice
 
-
 def main():
 
     cognix = Brain()
