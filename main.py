@@ -94,6 +94,5 @@ def main():
         print("[bold cyan]Cognix:[/bold cyan]", reply)
         voice.speak(reply)
 
-
 if __name__ == "__main__":
     main()
