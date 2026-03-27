@@ -4,6 +4,7 @@ from rich import print
 from memory import Memory
 from voice import Voice
 
+
 def main():
 
     cognix = Brain()
@@ -15,22 +16,20 @@ def main():
 
     while True:
 
-        # Listen for speech
         user_input = voice.listen()
 
-        # Ignore silence
+        # Ignore silence / noise
         if not user_input:
             continue
 
         user_input = user_input.strip()
+        lower_input = user_input.lower()
 
-        if user_input.lower() == "exit":
+        if lower_input == "exit":
             print("[bold red]Shutting down Cognix.[/bold red]")
             break
 
         print(f"[bold green]You:[/bold green] {user_input}")
-
-        lower_input = user_input.lower()
 
         # ------------------------
         # MEMORY: remember name
@@ -85,13 +84,14 @@ def main():
                 reply = "I couldn't perform that action."
 
         # ------------------------
-        # NORMAL RESPONSE
+        # CLEAN RESPONSE
         # ------------------------
         if "no action necessary" in reply.lower():
             reply = "Hello. How can I assist you?"
 
         print("[bold cyan]Cognix:[/bold cyan]", reply)
         voice.speak(reply)
+
 
 if __name__ == "__main__":
     main()
