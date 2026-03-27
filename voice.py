@@ -3,24 +3,26 @@ import sounddevice as sd
 import numpy as np
 import pyttsx3
 
+
 class Voice:
 
     def __init__(self):
 
-        self.model = whisper.load_model("base")
+        # Better model for accuracy
+        self.model = whisper.load_model("small")
 
         self.engine = pyttsx3.init()
+
+        self.sample_rate = 16000
 
     def listen(self):
 
         print("Listening...")
 
-        duration = 5
-        samplerate = 16000
-
+        duration = 6  # increased to allow natural speech
         recording = sd.rec(
-            int(duration * samplerate),
-            samplerate=samplerate,
+            int(duration * self.sample_rate),
+            samplerate=self.sample_rate,
             channels=1,
             dtype='float32'
         )
@@ -29,9 +31,22 @@ class Voice:
 
         audio = np.squeeze(recording)
 
-        result = self.model.transcribe(audio)
+        # Whisper with VAD + noise filtering
+        result = self.model.transcribe(
+            audio,
+            vad_filter=True,
+            no_speech_threshold=0.6
+        )
 
-        text = result["text"]
+        text = result["text"].strip()
+
+        # 🚫 Reject garbage / hallucinations
+        if not text or len(text) < 3:
+            return ""
+
+        garbage = ["you", "thanks", "thank you", ".", "..."]
+        if text.lower() in garbage:
+            return ""
 
         print("Heard:", text)
 
